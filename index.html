@@ -25,12 +25,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  animation: fade 1.2s ease;
-}
-
-@keyframes fade {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  animation: fade 1s ease;
 }
 
 .active {
@@ -103,15 +98,15 @@ button:hover {
 
 <body>
 
-<!-- 🎵 MUSIC (NO AUTOPLAY = SAFE) -->
+<!-- 🎵 MUSIC -->
 <audio id="music" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6c9c4d33b3.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
   <h1 id="type1"></h1>
-  <button onclick="startAll()">Enter 💗</button>
+  <button onclick="startMusic(); nextPage(2)">Enter 💗</button>
 </div>
 
 <!-- PAGE 2 -->
@@ -134,7 +129,7 @@ button:hover {
 
 <!-- FINAL -->
 <div class="page" id="page5">
-  <h1>It's all upto you now 💗<br>sounds cringe but I have to say- "Will you be my Rapunzel? I'll be your forever Flynn Rider!!!!!"..</h1>
+  <h1>It's all upto you now 💗<br>Sounds cringe but I have to say- "Will you be my Rapunzel? I'll be your forever Flynn Rider!!!!!"😙...</h1>
   <button id="yes" onclick="yesClick()">YES 😍</button>
   <button id="no">NO 😅</button>
   <div id="hearts"></div>
@@ -148,15 +143,8 @@ let t2 = "Jibone prothom karo jonno erokom kichu banabo vabini... but banai fell
 let t3 = "Donno bhaai jedin tore fb te 1st frnd req disilm shei din theika tore shundor laga shuru korsilo.Tor shte kothao start korsilm pore abr kno jni amdr kotha bola stop hoi gesilo.Thak oituku te r na jaai. Abb muddhe me aatahuun, tu mujhe bohot basand hae, Isliye maan terese relationship maan nehi jana chahta paar shadi karna chahta huun.Ami so called relationship partner e bisshashi na, life partner e bishasshi j amk amr worst session e help korbe,bhujbe,amr disaster e amr pashe thakbe.Jni tui amk ekhn narcissist mone koros cz ami shudhu future niye bhbi but ami shudhu amr future na amr baap-ma-bhaai r amr future niye bhabi amr partner k niye bhabi.Toh ki bolos amr jnno wait korbi success howar aag porjno?";
 let t4 = "No matter what you choose, I just want you to know — you’re genuinely special to me.I just wanna say u that -I love u Umama, I love u in every Universe😜";
 
-// 🎵 START (music + next page)
-function startAll(){
-  let music = document.getElementById("music");
-  music.play().catch(()=>{}); // mobile safe
 
-  nextPage(2);
-}
-
-// typing
+// typing effect
 function typeEffect(id, text, speed=35) {
   let i = 0;
   let el = document.getElementById(id);
@@ -189,22 +177,27 @@ window.onload = () => {
   no.addEventListener("touchstart", moveNo);
 };
 
+// 🎵 Start music after click (mobile safe)
+function startMusic(){
+  document.getElementById("music").play();
+}
+
+// YES → Insta DM (auto message)
+function yesClick() {
+  confetti();
+  hearts();
+
+  setTimeout(()=>{
+    window.open("https://www.instagram.com/direct/t/_abtahee_ee_?text=Yes,Niqqa I'm u'rs💀", "_blank");
+  },2000);
+}
+
 // NO dodge
 function moveNo() {
   let x = Math.random() * (window.innerWidth - 100);
   let y = Math.random() * (window.innerHeight - 50);
   no.style.left = x + "px";
   no.style.top = y + "px";
-}
-
-// YES → Insta DM
-function yesClick() {
-  confetti();
-  hearts();
-
-  setTimeout(()=>{
-    window.location.href="https://ig.me/m/_abtahee_ee_?text=Yes, 💗";
-  },2000);
 }
 
 // confetti
