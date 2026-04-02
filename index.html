@@ -25,7 +25,12 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  animation: fade 1s ease;
+  animation: fade 1.2s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .active {
@@ -98,15 +103,15 @@ button:hover {
 
 <body>
 
-<!-- 🎵 MUSIC -->
+<!-- 🎵 MUSIC (NO AUTOPLAY = SAFE) -->
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6c9c4d33b3.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
   <h1 id="type1"></h1>
-  <button onclick="startMusic(); nextPage(2)">Enter 💗</button>
+  <button onclick="startAll()">Enter 💗</button>
 </div>
 
 <!-- PAGE 2 -->
@@ -188,7 +193,7 @@ function yesClick() {
   hearts();
 
   setTimeout(()=>{
-    window.open("https://www.instagram.com/direct/t/_abtahee_ee_?text=Yes,Niqqa I'm u'rs💀", "_blank");
+    window.location.href="https://ig.me/m/_abtahee_ee_?text=Yes, Niqqa I choose you💀";
   },2000);
 }
 
