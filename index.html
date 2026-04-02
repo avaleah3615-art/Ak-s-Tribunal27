@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For You 💗</title>
+
+<style>
+body {
+  margin: 0;
+  background: linear-gradient(to bottom, #000000, #2b0000);
+  color: #fff;
+  font-family: Arial;
+  text-align: center;
+  overflow: hidden;
+  animation: bgPulse 5s infinite alternate;
+}
+
+@keyframes bgPulse {
+  from { background: linear-gradient(to bottom, #000000, #2b0000); }
+  to { background: linear-gradient(to bottom, #000000, #4d0000); }
+}
+
+.page {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: fade 1.2s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.active {
+  display: flex;
+}
+
+h1, p {
+  max-width: 80%;
+  line-height: 1.6;
+}
+
+/* YES button */
+#yes {
+  background: #ff4d6d;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px #ff4d6d; }
+  to { box-shadow: 0 0 30px #ff99aa; }
+}
+
+/* NO button */
+#no {
+  background: #444;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  position: absolute;
+  cursor: pointer;
+}
+
+button {
+  margin: 10px;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+/* Hearts */
+#hearts {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  color: #ff4d6d;
+  font-size: 20px;
+  animation: float 4s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC (NO AUTOPLAY = SAFE) -->
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1 id="type1"></h1>
+  <button onclick="startAll()">Enter 💗</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <p id="type2"></p>
+  <button onclick="nextPage(3)">Next →</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <p id="type3"></p>
+  <button onclick="nextPage(4)">Next →</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+  <p id="type4"></p>
+  <button onclick="nextPage(5)">Next →</button>
+</div>
+
+<!-- FINAL -->
+<div class="page" id="page5">
+  <h1>It's all upto you now 💗<br>sounds cringe but I have to say- "Will you be my Rapunzel? I'll be your forever Flynn Rider!!!!!"..</h1>
+  <button id="yes" onclick="yesClick()">YES 😍</button>
+  <button id="no">NO 😅</button>
+  <div id="hearts"></div>
+</div>
+
+<script>
+
+// TEXTS
+let t1 = "1st of all English dhuchaite partesi naa, Ki banaisi allahi jne but chesta korsiii... tor kache cringe mone hbe ig 😅";
+let t2 = "Jibone prothom karo jonno erokom kichu banabo vabini... but banai fellam.";
+let t3 = "Donno bhaai jedin tore fb te 1st frnd req disilm shei din theika tore shundor laga shuru korsilo.Tor shte kothao start korsilm pore abr kno jni amdr kotha bola stop hoi gesilo.Thak oituku te r na jaai. Abb muddhe me aatahuun, tu mujhe bohot basand hae, Isliye maan terese relationship maan nehi jana chahta paar shadi karna chahta huun.Ami so called relationship partner e bisshashi na, life partner e bishasshi j amk amr worst session e help korbe,bhujbe,amr disaster e amr pashe thakbe.Jni tui amk ekhn narcissist mone koros cz ami shudhu future niye bhbi but ami shudhu amr future na amr baap-ma-bhaai r amr future niye bhabi amr partner k niye bhabi.Toh ki bolos amr jnno wait korbi success howar aag porjno?";
+let t4 = "No matter what you choose, I just want you to know — you’re genuinely special to me.I just wanna say u that -I love u Umama, I love u in every Universe😜";
+
+// 🎵 START (music + next page)
+function startAll(){
+  let music = document.getElementById("music");
+  music.play().catch(()=>{}); // mobile safe
+
+  nextPage(2);
+}
+
+// typing
+function typeEffect(id, text, speed=35) {
+  let i = 0;
+  let el = document.getElementById(id);
+  el.innerHTML = "";
+  let timer = setInterval(() => {
+    el.innerHTML += text.charAt(i);
+    i++;
+    if (i >= text.length) clearInterval(timer);
+  }, speed);
+}
+
+// page switch
+function nextPage(num) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById("page"+num).classList.add("active");
+
+  if(num==2) typeEffect("type2", t2);
+  if(num==3) typeEffect("type3", t3);
+  if(num==4) typeEffect("type4", t4);
+}
+
+// start
+let no;
+
+window.onload = () => {
+  typeEffect("type1", t1);
+
+  no = document.getElementById("no");
+  no.addEventListener("mouseover", moveNo);
+  no.addEventListener("touchstart", moveNo);
+};
+
+// NO dodge
+function moveNo() {
+  let x = Math.random() * (window.innerWidth - 100);
+  let y = Math.random() * (window.innerHeight - 50);
+  no.style.left = x + "px";
+  no.style.top = y + "px";
+}
+
+// YES → Insta DM
+function yesClick() {
+  confetti();
+  hearts();
+
+  setTimeout(()=>{
+    window.location.href="https://ig.me/m/_abtahee_ee_?text=Yes, 💗";
+  },2000);
+}
+
+// confetti
+function confetti(){
+  for(let i=0;i<100;i++){
+    let c=document.createElement("div");
+    c.style.position="fixed";
+    c.style.width="8px";
+    c.style.height="8px";
+    c.style.backgroundColor="#ff4d6d";
+    c.style.left=Math.random()*window.innerWidth+"px";
+    document.body.appendChild(c);
+    c.animate([{transform:"translateY(0)"},{transform:"translateY(100vh)"}],{duration:2000});
+    setTimeout(()=>c.remove(),2000);
+  }
+}
+
+// hearts
+function hearts(){
+  let container=document.getElementById("hearts");
+  setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    container.appendChild(h);
+    setTimeout(()=>h.remove(),4000);
+  },300);
+}
+
+</script>
+
+</body>
+</html>
